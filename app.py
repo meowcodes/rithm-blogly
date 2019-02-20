@@ -1,6 +1,6 @@
 """Blogly application."""
 
-from flask import Flask
+from flask import Flask, request, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User
 
@@ -14,4 +14,7 @@ debug = DebugToolbarExtension(app)
 connect_db(app)
 
 @app.route('/')
-def 
+def list_users():
+    users = User.query.all()
+    return render_template("user_listing.html",
+                            users = users)
