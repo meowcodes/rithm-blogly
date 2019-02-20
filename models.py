@@ -10,7 +10,7 @@ def connect_db(app):
     db.init_app(app)
 
 class User(db.Model):
-    """ Users """"
+    """ Users """
 
     __tablename__ = "users"
 
