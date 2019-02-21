@@ -3,6 +3,7 @@
 from flask import Flask, request, render_template, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post
+from sqlalchemy import desc
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "oh-so-secret"
@@ -16,7 +17,8 @@ connect_db(app)
 @app.route('/')
 def show_index():
     """Redirect to list of users"""
-    return redirect("/users")
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
+    return render_template('index.html', posts=posts)
 
 @app.route('/users')
 def list_users():
