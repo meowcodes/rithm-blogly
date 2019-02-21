@@ -5,10 +5,9 @@
     <h2>Edit Post</h2>
     <form action="/posts/{{ post.id }}/edit" method="POST">
         <label for="title">Title</label>
-        <input name="title" id="title" value="{{ post.title }}">
+        <input name="title" id="title" value="{{ post.title }}"><br>
         <label for="content">Post Content</label>
-        <input name="content" id="content" value="{{ post.content }}">
-        
+        <textarea class="form-control" rows="10" name="content" id="content">{{ post.content }}</textarea>
         <a href="/posts/{{ post.id }}" class="btn btn-info">Cancel</a>
         <button type="submit" class="btn btn-success">Edit</button>
     </form>
