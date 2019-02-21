@@ -83,9 +83,6 @@ def delete_user_detail(user_id):
 
     return redirect('/users')
 
-
-# GET /users/[user-id]/posts/new
-# Show form to add a post for that user.
 @app.route('/users/<int:user_id>/posts/new')
 def add_post_form(user_id):
     """ Show add post form """
@@ -94,8 +91,6 @@ def add_post_form(user_id):
 
     return render_template('new_post_form.html', user=user)
 
-# POST /users/[user-id]/posts
-# Handle add form; add post and redirect to the user detail page.
 @app.route('/users/<int:user_id>/posts', methods=['POST'])
 def add_post(user_id):
     """ Add post to database """
@@ -110,9 +105,6 @@ def add_post(user_id):
 
     return redirect(f"/users/{user_id}")
 
-
-# GET /posts/[post-id]
-# Show a post.
 @app.route('/posts/<int:post_id>')
 def show_post_detail(post_id):
     """ Show post details """
@@ -121,8 +113,6 @@ def show_post_detail(post_id):
 
     return render_template('post_detail_page.html', post=post)
 
-# GET /posts/[post-id]/edit
-# Show form to edit a post, and to cancel (back to user page).
 @app.route('/posts/<int:post_id>/edit')
 def show_post_edit_form(post_id):
     """ Show update post form """
@@ -131,8 +121,6 @@ def show_post_edit_form(post_id):
 
     return render_template('edit_post.html', post=post)
 
-# POST /posts/[post-id]/edit
-# Handle editing of a post. Redirect back to the post view.
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def edit_post(post_id):
     """ Update post in database """
@@ -147,9 +135,6 @@ def edit_post(post_id):
 
     return redirect(f"/posts/{post.id}")
 
-
-# POST /posts/[post-id]/delete
-# Delete the post.
 @app.route('/posts/<int:post_id>/delete', methods=['POST'])
 def delete_post(post_id):
     """ Delete post in database """
