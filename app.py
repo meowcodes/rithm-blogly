@@ -33,7 +33,7 @@ def show_new_user_form():
 def post_new_user():
     """Process the add form, adding a new user and going back to /users"""
 
-    first_name = request.form.get('first_name')
+    first_name = request.form.get('first_name') or None
     last_name = request.form.get('last_name')
     image_url = request.form.get('image_url') or None
 
@@ -48,9 +48,8 @@ def post_new_user():
 def show_user_detail(user_id):
     """Show information about the given user."""
     user = User.query.get(user_id)
-    posts = Post.query.filter_by(user_id=user_id).all()
     
-    return render_template('user_details.html', user=user, posts=posts)
+    return render_template('user_details.html', user=user, posts=user.posts)
 
 @app.route('/users/<int:user_id>/edit')
 def show_edit_user_detail_edit_form(user_id):
@@ -64,12 +63,10 @@ def edit_user_detail(user_id):
     """Show the edit page for a user."""
     updated_user = User.query.get(user_id)
 
-    updated_user.first_name = request.form.get('first_name')
-    updated_user.last_name = request.form.get('last_name')
+    updated_user.first_name = request.form.get('first_name') or None
+    updated_user.last_name = request.form.get('last_name') or None
     updated_user.image_url = request.form.get('image_url') or None
 
-
-    db.session.add(updated_user)
     db.session.commit()
 
     return redirect('/users')
@@ -130,7 +127,6 @@ def edit_post(post_id):
     post.title = request.form.get('title')
     post.content = request.form.get('content')
 
-    db.session.add(post)
     db.session.commit()
 
     return redirect(f"/posts/{post.id}")

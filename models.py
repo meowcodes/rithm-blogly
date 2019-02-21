@@ -1,6 +1,7 @@
 """ Models for Blogly """
-import datetime
+# import datetime
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 
 db = SQLAlchemy()
 
@@ -17,7 +18,7 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer,
-        primary_key = True,
+        primary_key=True,
         autoincrement = True)
     first_name = db.Column(db.String(50),
         nullable= False)
@@ -33,7 +34,7 @@ class User(db.Model):
         return f"<User {u.first_name} {u.last_name}>"
     
     @property
-    def get_full_name(self):
+    def full_name(self):
         """ Return full name of user """
         return f"{self.first_name} {self.last_name}"
 
@@ -41,18 +42,20 @@ class User(db.Model):
 class Post(db.Model):
     """ Posts """
 
-    ___tablename__= "posts"
+    __tablename__= "posts"
 
     id = db.Column(db.Integer,
-        primary_key = True,
-        autoincrement = True)
+        primary_key=True,
+        autoincrement=True)
     title = db.Column(db.String(100),
-        nullable = False)
-    content = db.Column(db.String(10000),
-        nullable = False)
-    created_at = db.Column(db.DateTime, 
-        default=datetime.datetime.now)
+        nullable=False)
+    content = db.Column(db.Text,
+        nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), 
+        server_default=func.now(), index=True)
+        # default=datetime.datetime.now
     user_id = db.Column(db.Integer,
         db.ForeignKey('users.id'),
-        nullable = False)
+        nullable=False)
     
+
