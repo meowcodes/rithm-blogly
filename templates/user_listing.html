@@ -5,9 +5,9 @@
     <h2>Users</h2>
     <div>
         {% for user in users%}
-        <ul>{{ user.first_name }} {{ user.last_name }}</ul>
+        <ul><a href="/users/{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</a></ul>
         {% endfor %}
     </div>
-    <button type="button" class="btn btn-secondary">Add User</button>
+    <a href="/users/new" class="btn btn-secondary">Add User</a>
 </div>
 {% endblock %}

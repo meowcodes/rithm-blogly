@@ -16,13 +16,13 @@ connect_db(app)
 @app.route('/')
 def show_index():
     """Redirect to list of users"""
-    return redirect("/userss")
+    return redirect("/users")
 
-@app.route('/userss')
+@app.route('/users')
 def list_users():
     users = User.query.all()
     return render_template("user_listing.html",
-                            users = users)
+        users = users)
 
 @app.route('/users/new')
 def show_new_user_form():
@@ -35,7 +35,7 @@ def post_new_user():
 
     first_name = request.form.get('first_name')
     last_name = request.form.get('last_name')
-    image_url = request.form.get('image_url')
+    image_url = request.form.get('image_url') or None
 
     new_user = User(first_name = first_name, last_name = last_name, image_url = image_url)
 
@@ -51,7 +51,7 @@ def show_user_detail(user_id):
     return render_template('user_details.html', user=user)
 
 @app.route('/users/<int:user_id>/edit')
-def edit_user_detail(user_id):
+def show_edit_user_detail_form(user_id):
     """Show the edit page for a user."""
     user = User.query.get(user_id)
     return render_template('user_details_edit.html', user=user)
@@ -63,7 +63,8 @@ def edit_user_detail(user_id):
 
     updated_user.first_name = request.form.get('first_name')
     updated_user.last_name = request.form.get('last_name')
-    updated_user.image_url = request.form.get('image_url')
+    updated_user.image_url = request.form.get('image_url') or None
+
 
     db.session.add(updated_user)
     db.session.commit()

@@ -15,14 +15,14 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer,
-                    primary_key = True,
-                    autoincrement = True)
+        primary_key = True,
+        autoincrement = True)
     first_name = db.Column(db.String(50),
-                            nullable= False)
+        nullable= False)
     last_name = db.Column(db.String(50),
-                            nullable= False)
+        nullable= False)
     image_url = db.Column(db.Text,
-                            default= DEFAULT_IMG_URL)
+        default= DEFAULT_IMG_URL)
     
     def __repr__(self):
         u = self
