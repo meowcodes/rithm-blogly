@@ -2,16 +2,13 @@
 
 {% block content %}
 <div class="container">
-    <h2>{{ user.first_name }} {{ user.last_name}}</h2>
+    <h2>{{ post.title }}</h2> <br>
+    <p>{{ post.content }}</p>
+    <p class="font-italic">By {{ post.user.get_full_name }}</p>
     <a href="/users/{{ user.id }}/edit" class="btn btn-primary">Edit</a>
     <form action="/users/{{ user.id }}/delete" method="POST">
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
-    <h3>Posts</h3>
-    <ul>
-        {{% for post in posts %}}
-        <li>{{% post %}</li>
-        {{% endfor %}}
-    </ul>
+   
 </div>
 {% endblock %}
