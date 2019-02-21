@@ -1,5 +1,8 @@
 """Models for Blogly."""
+import datetime
 from flask_sqlalchemy import SQLAlchemy
+
+
 db = SQLAlchemy()
 
 DEFAULT_IMG_URL = "https://www3.nd.edu/~streslab/assets/img/ra_pics/Placeholder_Photo.png"
@@ -23,6 +26,8 @@ class User(db.Model):
         nullable= False)
     image_url = db.Column(db.Text,
         default= DEFAULT_IMG_URL)
+
+    posts = db.relationship('Post', backref="user", cascade="all, delete-orphan")
     
     def __repr__(self):
         u = self
@@ -32,3 +37,25 @@ class User(db.Model):
     def get_full_name(self):
         """Return full name of user."""
         return f"{self.first_name} {self.last_name}"
+
+    
+
+class Post(db.Model):
+    """ Posts """
+
+    ___tablename__= "posts"
+
+    id = db.Column(db.Integer,
+                    primary_key = True,
+                    autoincrement = True)
+    title = db.Column(db.String(100),
+                    nullable = False)
+    content = db.Column(db.String(10000),
+                    nullable = False)
+    created_at = db.Column(db.DateTime, 
+                    default=datetime.datetime.now)
+    user_id = db.Column(db.Integer,
+                    db.Foreignkey('users.id'),
+                    nullable = False)
+    
+    #user = db.relationship('User', backref='posts')
