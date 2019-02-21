@@ -27,3 +27,8 @@ class User(db.Model):
     def __repr__(self):
         u = self
         return f"<User {u.first_name} {u.last_name}>"
+    
+    @property
+    def get_full_name(self):
+        """Return full name of user."""
+        return f"{self.first_name} {self.last_name}"
