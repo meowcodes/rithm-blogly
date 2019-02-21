@@ -48,12 +48,15 @@ def post_new_user():
 def show_user_detail(user_id):
     """Show information about the given user."""
     user = User.query.get(user_id)
-    return render_template('user_details.html', user=user)
+    posts = Post.query.filter_by(user_id=user_id).all()
+    
+    return render_template('user_details.html', user=user, posts=posts)
 
 @app.route('/users/<int:user_id>/edit')
-def show_edit_user_detail_form(user_id):
+def show_edit_user_detail_edit_form(user_id):
     """Show the edit page for a user."""
     user = User.query.get(user_id)
+    
     return render_template('user_details_edit.html', user=user)
 
 @app.route('/users/<int:user_id>/edit', methods=['POST'])
@@ -104,7 +107,7 @@ def add_post(user_id):
     db.session.add(new_post)
     db.session.commit()
 
-    return redirect('/users/<int:user_id>')
+    return redirect(f"/users/{user_id}")
 
 
 # GET /posts/[post-id]

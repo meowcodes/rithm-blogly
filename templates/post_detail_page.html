@@ -5,8 +5,8 @@
     <h2>{{ post.title }}</h2> <br>
     <p>{{ post.content }}</p>
     <p class="font-italic">By {{ post.user.get_full_name }}</p>
-    <a href="/users/{{ user.id }}/edit" class="btn btn-primary">Edit</a>
-    <form action="/users/{{ user.id }}/delete" method="POST">
+    <a href="/users/{{ post.user.id }}/edit" class="btn btn-primary">Edit</a>
+    <form action="/users/{{ post.user.id }}/delete" method="POST">
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
    
