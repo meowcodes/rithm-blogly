@@ -83,6 +83,7 @@ def delete_user_detail(user_id):
 
     return redirect('/users')
 
+
 # GET /users/[user-id]/posts/new
 # Show form to add a post for that user.
 @app.route('/users/<int:user_id>/posts/new')
@@ -114,7 +115,49 @@ def add_post(user_id):
 # Show a post.
 @app.route('/posts/<int:post_id>')
 def show_post_detail(post_id):
+    """ Show post details """
 
     post = Post.query.get(post_id)
 
     return render_template('post_detail_page.html', post=post)
+
+# GET /posts/[post-id]/edit
+# Show form to edit a post, and to cancel (back to user page).
+@app.route('/posts/<int:post_id>/edit')
+def show_post_edit_form(post_id):
+    """ Show update post form """
+
+    post = Post.query.get(post_id)
+
+    return render_template('edit_post.html', post=post)
+
+# POST /posts/[post-id]/edit
+# Handle editing of a post. Redirect back to the post view.
+@app.route('/posts/<int:post_id>/edit', methods=['POST'])
+def edit_post(post_id):
+    """ Update post in database """
+
+    post = Post.query.get(post_id)
+
+    post.title = request.form.get('title')
+    post.content = request.form.get('content')
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/posts/{post.id}")
+
+
+# POST /posts/[post-id]/delete
+# Delete the post.
+@app.route('/posts/<int:post_id>/delete', methods=['POST'])
+def delete_post(post_id):
+    """ Delete post in database """
+
+    post = Post.query.get(post_id)
+    user_id = post.user.id
+
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect(f"/users/{user_id}")
