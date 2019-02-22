@@ -11,6 +11,9 @@
             <input name="content" id="content">
             <a href="/users/{{ user.id }}" class="btn btn-info" >Cancel</a>
             <button type="submit" class="btn btn-success">Add</button>
+            {% tag for tags %}
+                <input type="checkbox" name="{{ tag.id }}" value="{{ tag.name }}">{{ tag.name }}<br>
+            {% endfor %}
         </form>
     </div>
 </div>

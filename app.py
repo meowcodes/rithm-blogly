@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template, redirect
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 from sqlalchemy import desc
 
 app = Flask(__name__)
@@ -110,17 +110,17 @@ def show_post_detail(post_id):
     """ Show post details """
 
     post = Post.query.get(post_id)
-    tags = Tag.query.all()
 
-    return render_template('post_detail_page.html', post=post, tags=tags)
+    return render_template('post_detail_page.html', post=post)
 
 @app.route('/posts/<int:post_id>/edit')
 def show_post_edit_form(post_id):
     """ Show update post form """
 
     post = Post.query.get(post_id)
+    tags = Tag.query.all()
 
-    return render_template('edit_post.html', post=post)
+    return render_template('edit_post.html', post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def edit_post(post_id):
@@ -130,6 +130,11 @@ def edit_post(post_id):
 
     post.title = request.form.get('title')
     post.content = request.form.get('content')
+
+    tag_ids = request.form.getlist('tag')
+
+#     for tag_id in tag_ids:
+#         post.posts_tags.append(PostTag(tag_id=tag_id))
 
     db.session.commit()
 
@@ -153,15 +158,15 @@ def show_tags():
 
     tags = Tag.query.all()
 
-    return render_template('tag_listing.html' tags=tags)
+    return render_template('tag_listing.html', tags=tags)
 
-@app.route('/tags/<int:tag_id>/')
-def show_tag_details(tag_id)
+@app.route('/tags/<int:tag_id>')
+def show_tag_details(tag_id):
     """Show detail about a tag. Have links to edit form and to delete"""
 
     tag = Tag.query.get(tag_id)
 
-    return render_template('tag_details.html', tag=tag)
+    return render_template('tag_detail_page.html', tag=tag)
 
 @app.route('/tags/new')
 def show_add_tag_form(tag_id):

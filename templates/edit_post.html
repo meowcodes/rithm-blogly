@@ -7,7 +7,14 @@
         <label for="title">Title</label>
         <input name="title" id="title" value="{{ post.title }}"><br>
         <label for="content">Post Content</label>
-        <textarea class="form-control" rows="10" name="content" id="content">{{ post.content }}</textarea>
+        <textarea class="form-control" rows="10" name="content" id="content">{{ post.content }}</textarea><br>
+        {% for tag in tags %}
+            {% if tag in post.tags %}
+                <input type="checkbox" name="tag" value="{{ tag.id }}" checked>{{ tag.name }}<br>
+            {% else %}
+                <input type="checkbox" name="tag" value="{{ tag.id }}">{{ tag.name }}<br>
+            {% endif %}
+        {% endfor %}
         <a href="/posts/{{ post.id }}" class="btn btn-info">Cancel</a>
         <button type="submit" class="btn btn-success">Edit</button>
     </form>

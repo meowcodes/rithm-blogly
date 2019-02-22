@@ -9,4 +9,6 @@
             <p>By <a href="/users/{{ post.user_id }}">{{ post.user.full_name }}</a> on {{ post.created_at }}</p>
         </div>
     {% endfor %}
+    <a href="/users" class="btn btn-info">Users</a>
+    <a href="/tags" class="btn btn-info">Tags</a>
 {% endblock %}
