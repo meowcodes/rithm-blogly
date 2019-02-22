@@ -1,14 +1,24 @@
 {% extends 'base.html' %}
 
+{% block page_title %}index{% endblock %}
+
 {% block content %}
-    <h1>Blogly Recent Posts</h1>
+<div class="container">
+<div class="row">
+<div class="col-12">
+    <div class="title">
+        <h1>Blogly Recent Posts</h1>
+    </div>
+    <div>
     {% for post in posts %}
-        <div>
-            <h1><a href="/posts/{{ post.id }}">{{ post.title }}</a></h1>
+        <div class="post-box">
+            <h3><a href="/posts/{{ post.id }}">{{ post.title }}</a></h3>
             <p>{{ post.content }}</p>
             <p>By <a href="/users/{{ post.user_id }}">{{ post.user.full_name }}</a> on {{ post.created_at }}</p>
         </div>
     {% endfor %}
-    <a href="/users" class="btn btn-info">Users</a>
-    <a href="/tags" class="btn btn-info">Tags</a>
+    </div>
+</div>
+</div>
+</div>
 {% endblock %}

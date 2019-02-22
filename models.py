@@ -7,10 +7,12 @@ db = SQLAlchemy()
 
 DEFAULT_IMG_URL = "https://www3.nd.edu/~streslab/assets/img/ra_pics/Placeholder_Photo.png"
 
+
 def connect_db(app):
     """ Connects to Database"""
     db.app = app
     db.init_app(app)
+
 
 class User(db.Model):
     """ Users """
@@ -59,7 +61,8 @@ class Post(db.Model):
         nullable=False)
 
     posts_tags = db.relationship('PostTag',
-        backref='posts')
+        backref='posts',
+        cascade="all, delete-orphan")
     
     tags = db.relationship('Tag',
         secondary='posts_tags',

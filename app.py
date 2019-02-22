@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
-debug = DebugToolbarExtension(app)
+# debug = DebugToolbarExtension(app)
 connect_db(app)
 
 @app.route('/')
@@ -98,13 +98,9 @@ def add_post(user_id):
     title = request.form.get('title')
     content = request.form.get('content')
     tag_ids = request.form.getlist('tag')
-    # tag_list = [int(num) for num in tag_ids]
-    # new_post = Post(title=request.form['title'],
-    #                 content=request.form['content'],
-    #                 user=user,
-    #                 tags=tags)
+    tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
 
-    new_post = Post(title=title, content=content, user_id=user_id)
+    new_post = Post(title=title, content=content, user_id=user_id, tags=tags)
 
     db.session.add(new_post)
     db.session.commit()

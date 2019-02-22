@@ -1,0 +1,58 @@
+body {
+    background-color: mintcream;
+}
+
+nav {
+    background-color: mediumaquamarine;
+}
+
+nav a {
+    color: mintcream!important;
+}
+
+a {
+    color: mediumaquamarine;
+}
+
+a:hover {
+    color: cadetblue;
+    text-decoration: none;
+}
+
+.btn-blogly {
+    margin: 0.5em 1em 0.5em 0em ;
+    border: solid 1.5px mediumaquamarine;
+    background-color: rgba(255,255,255,0.75);
+    color: mediumaquamarine;
+}
+
+.btn-blogly:hover {
+    color: cadetblue;
+    border-color: cadetblue;
+}
+
+.badge-blogly {
+    background-color: cadetblue;
+    color: white;
+    border: solid 1px cadetblue;
+}
+
+.delete-form {
+    display: inline-block;
+}
+.index .title {
+    padding: 1em;
+}
+
+.post-box {
+    margin: 1em;
+    border: solid 0.25em mediumaquamarine;
+    border-radius: 0.5em;
+    background-color: rgba(255,255,255,0.5);
+    padding: 0.75em 1em 0.5em;
+}
+
+.tag-box {
+    margin: 1em 0;
+}
+
