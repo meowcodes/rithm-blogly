@@ -98,6 +98,11 @@ def add_post(user_id):
     title = request.form.get('title')
     content = request.form.get('content')
     tag_ids = request.form.getlist('tag')
+    # tag_list = [int(num) for num in tag_ids]
+    # new_post = Post(title=request.form['title'],
+    #                 content=request.form['content'],
+    #                 user=user,
+    #                 tags=tags)
 
     new_post = Post(title=title, content=content, user_id=user_id)
 
