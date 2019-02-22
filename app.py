@@ -97,6 +97,7 @@ def add_post(user_id):
 
     title = request.form.get('title')
     content = request.form.get('content')
+    tag_ids = request.form.getlist('tag')
 
     new_post = Post(title=title, content=content, user_id=user_id)
 
@@ -132,6 +133,11 @@ def edit_post(post_id):
     post.content = request.form.get('content')
 
     tag_ids = request.form.getlist('tag')
+    post.tags= Tag.query.filter(Tag.id.in_(tag_ids)).all()
+
+#     db.session.commit()
+    
+# #     import pdb; pdb.set_trace()
 
 #     for tag_id in tag_ids:
 #         post.posts_tags.append(PostTag(tag_id=tag_id))
